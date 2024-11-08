@@ -1,29 +1,50 @@
 
 | CS-665       | Software Design & Patterns |
 |--------------|----------------------------|
-| Name         | FIRST_NAME LAST_NAME       |
-| Date         | MM/DD/YYYY                 |
-| Course       | Fall / Spring / Summer     |
-| Assignment # |                            |
+| Name         | Haonan Chen                |
+| Date         | 11/08/2024                 |
+| Course       | Fall                       |
+| Assignment # | 4                          |
 
 # Assignment Overview
-Please add a paragraph or two overviewing the objectives of the assignment.
+This project is developed for Boston University's CS-665: Software Designs & Patterns course.
+It demonstrates the use of the Adapter design pattern to integrate a legacy system and a new system
+for accessing customer data. The project is implemented in Java and includes unit tests to verify functionality.
 
 # GitHub Repository Link:
-https://github.com/{YOUR_USERNAME}/cs-665-assignment-{ASSIGNMENT_NUMBER}
-
+https://github.com/HaonanChen-2024/cs-665-assignment--4--
 # Implementation Description 
 
+## 1. Flexibility of the Implementation
+   The design of this project emphasizes flexibility, primarily achieved through the use of the CustomerDataService interface. By defining a common interface for accessing customer data, the project allows new data retrieval implementations to be added or removed easily in the future. For example, if the company decides to add another customer data retrieval system (e.g., via a cloud service or a database), it can simply implement CustomerDataService, and the new implementation can be seamlessly integrated with the existing codebase without modifying other parts of the system. This makes the solution extensible and adaptable to future requirements without affecting the core functionality.
 
-For each assignment, please answer the following:
+## 2. Simplicity and Understandability
+   The implementation is simple and easy to understand, as it follows a modular design with clear separation of concerns. Each class has a single responsibility:
 
-- Explain the level of flexibility in your implementation, including how new object types can
-be easily added or removed in the future.
-- Discuss the simplicity and understandability of your implementation, ensuring that it is
-easy for others to read and maintain.
-- Describe how you have avoided duplicated code and why it is important.
-- If applicable, mention any design patterns you have used and explain why they were
-chosen.
+CustomerDataService defines a common interface for customer data access.
+LegacyCustomerDataService and NewCustomerDataService provide concrete implementations for the old and new systems, respectively.
+CustomerDataAdapter adapts the new system’s interface to match the legacy system’s expected format.
+Customer is a straightforward data class representing customer information.
+The use of interfaces and the Adapter pattern also enhances readability by making the purpose of each class evident, which helps other developers understand and maintain the code with ease.
+
+## 3. Avoidance of Duplicated Code
+   The codebase avoids duplication by defining a shared interface (CustomerDataService) and using an adapter (CustomerDataAdapter) to bridge between different systems. This approach prevents the need for separate code to handle data retrieval in multiple formats. Instead of duplicating data retrieval logic, the adapter leverages the existing NewCustomerDataService implementation to serve the legacy system. This is important because avoiding code duplication reduces the potential for inconsistencies and errors. It also simplifies future maintenance, as any changes to data retrieval logic can be made in one place rather than multiple classes.
+
+## 4. Use of Design Patterns
+   The Adapter Pattern was chosen as the primary design pattern for this project. This pattern allows the new system’s API to be used in place of the legacy system’s API by adapting it to match the old interface. The Adapter Pattern is well-suited for this scenario because it enables smooth integration of a new system without modifying the existing legacy system or duplicating its API. This choice enhances the flexibility of the implementation, allowing the system to evolve while remaining backward-compatible. Additionally, the pattern encourages clean and modular design by encapsulating the adaptation logic within a single class (CustomerDataAdapter), making the codebase easier to extend and maintain.
+
+## Project Structure
+
+- `CustomerDataService`: Interface defining the standard method for accessing customer data.
+- `LegacyCustomerDataService`: Implementation of `CustomerDataService` that simulates data retrieval
+  from a legacy system via USB.
+- `NewCustomerDataService`: Implementation of `CustomerDataService` that simulates data retrieval
+  from a new system via HTTPS.
+- `CustomerDataAdapter`: Adapter class that allows the new system's data access method to be used
+  as if it were the legacy system.
+- `Customer`: Data class representing a customer, with attributes for ID and name.
+
+
 
 
 # Maven Commands

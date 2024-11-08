@@ -1,38 +1,31 @@
-/**
- * Name: FIRST_NAME LAST_NAME
- * Course: CS-665 Software Designs & Patterns
- * Date: MM/DD/YYYY
- * File Name: Main.java
- * Description: Write a description for this class
- */
-
 package edu.bu.met.cs665;
 
-import edu.bu.met.cs665.example1.Person;
-
 /**
- * This is the Main class.
+ * Name: Haonan Chen
+ * Course: CS-665 Software Designs & Patterns
+ * Date: 11/8/2024
+ * File Name: Main.java
+ * Description: Main class to test the functionality of LegacyCustomerDataService,
+ *              NewCustomerDataService, and CustomerDataAdapter.
  */
 public class Main {
+    public static void main(String[] args) {
+        // Using legacy system directly
+        CustomerDataService legacyService = new LegacyCustomerDataService();
+        System.out.println("Legacy Service Output:");
+        Customer legacyCustomer = legacyService.getCustomerData(1);
+        System.out.println(legacyCustomer);
 
-  /**
-   * A main method to run examples.
-   * You may use this method for development purposes as you start building your
-   * assignments/final project.  This could prove convenient to test as you are developing.
-   * However, please note that every assignment/final projects requires JUnit tests.
-   */
-  public static void main(String[] args) {
-    System.out.println("This is a test message from the Main class (Main.java file)");
-  }
+        // Using new system directly
+        CustomerDataService newService = new NewCustomerDataService();
+        System.out.println("\nNew Service Output:");
+        Customer newCustomer = newService.getCustomerData(2);
+        System.out.println(newCustomer);
 
-  /**
-   * This method performs XYZ and returns String.
-   *
-   * @return String
-   */
-  private String doIt() {
-    Person student = new Person("John", "Doe");
-    return student.getLastName() + ',' + student.getFirstName();
-  }
-
+        // Using adapter to access new service as legacy
+        CustomerDataService adapterService = new CustomerDataAdapter(new NewCustomerDataService());
+        System.out.println("\nAdapter Service Output:");
+        Customer adaptedCustomer = adapterService.getCustomerData(3);
+        System.out.println(adaptedCustomer);
+    }
 }
